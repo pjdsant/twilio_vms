@@ -1,0 +1,177 @@
+{
+  "description": "IVR",
+  "states": [
+    {
+      "type": "InitialState",
+      "name": "Trigger",
+      "properties": {
+        "offset": {
+          "x": -3390,
+          "y": -630
+        },
+        "flow_url": "https://webhooks.twilio.com/v1/Accounts/AC1ea5b5b8853f2532e5d89a14dd39879b/Flows/FW94d40367c6f09641acd2afc12232485c"
+      },
+      "transitions": [
+        {
+          "event": "incomingMessage",
+          "conditions": [],
+          "next": null,
+          "uuid": "00ed3621-656d-48bd-bf96-c543c4197205"
+        },
+        {
+          "event": "incomingCall",
+          "conditions": [],
+          "next": "FFa7efd7508971a01f14048baf50b9a85e",
+          "uuid": "e0cc9196-c6c4-48f0-a67f-f38f735225ec"
+        },
+        {
+          "event": "incomingRequest",
+          "conditions": [],
+          "next": null,
+          "uuid": "a2289b15-64b5-446c-83d5-82ef6e67c61d"
+        }
+      ],
+      "sid": "FF7fa0ef3804e609c2f20ea3b62d37ce34"
+    },
+    {
+      "type": "Record",
+      "name": "GRAVA_RECADO",
+      "properties": {
+        "offset": {
+          "x": -2800,
+          "y": -330
+        },
+        "timeout": 3,
+        "finish_on_key": "*",
+        "max_length": 3600,
+        "transcribe": null,
+        "transcription_callback_url": null
+      },
+      "transitions": [
+        {
+          "event": "recordingComplete",
+          "conditions": [],
+          "next": "FF5feac7f8be7447e6a72061c14fccac07",
+          "uuid": "05d457a9-d071-41a2-8571-3d40671509b2"
+        },
+        {
+          "event": "noAudio",
+          "conditions": [],
+          "next": null,
+          "uuid": "17ee39af-24c2-42d9-ae44-02f5fa39682e"
+        },
+        {
+          "event": "hangup",
+          "conditions": [],
+          "next": null,
+          "uuid": "01c2a6e0-ac3f-4468-af1c-851ad806e474"
+        }
+      ],
+      "sid": "FFa8e4a6641f1e7e8794ffffd559288645"
+    },
+    {
+      "type": "SayPlay",
+      "name": "FALA_RECADO",
+      "properties": {
+        "offset": {
+          "x": -2600,
+          "y": 280
+        },
+        "say": "Excelente, já enviei um SMS para os nossos consultores com o seu recado. \nObrigado.",
+        "play": null,
+        "voice": "Polly.Ricardo",
+        "language": "pt-BR",
+        "loop": 1
+      },
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "conditions": [],
+          "next": null,
+          "uuid": "a13b7825-a42c-44d5-9525-41badb7c3d92"
+        }
+      ],
+      "sid": "FFbfc83e606ba6aeabd0ef32f9ea13eeaf"
+    },
+    {
+      "type": "SayPlay",
+      "name": "BEM_VINDO",
+      "properties": {
+        "offset": {
+          "x": -3370,
+          "y": -320
+        },
+        "say": "Olá, bem vindo a Láiqui uáder.\nDeixei seu recado após o bip.",
+        "play": null,
+        "voice": "Polly.Ricardo",
+        "language": "pt-BR",
+        "loop": 1
+      },
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "conditions": [],
+          "next": "FF4d8eb7c1ff6a036f8be569362add30f1",
+          "uuid": "67085e5f-4ce1-4f06-b357-e898dbc2b814"
+        }
+      ],
+      "sid": "FFa7efd7508971a01f14048baf50b9a85e"
+    },
+    {
+      "type": "SayPlay",
+      "name": "BIP",
+      "properties": {
+        "offset": {
+          "x": -3370,
+          "y": -50
+        },
+        "say": null,
+        "play": "https://cerulean-coyote-3468.twil.io/assets/beep.mp3",
+        "voice": null,
+        "language": "default",
+        "loop": 1
+      },
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "conditions": [],
+          "next": "FFa8e4a6641f1e7e8794ffffd559288645",
+          "uuid": "938d800b-d2fd-42e2-8c8b-07c33ad05791"
+        }
+      ],
+      "sid": "FF4d8eb7c1ff6a036f8be569362add30f1"
+    },
+    {
+      "type": "Message",
+      "name": "ENVIA_SMS",
+      "properties": {
+        "offset": {
+          "x": -2700,
+          "y": -30
+        },
+        "body": "Ouça seu recado clicando nesse link {{widgets.GRAVA_RECADO.RecordingUrl}}",
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "media_url": null,
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "attributes": "{{flow.variables}}"
+      },
+      "transitions": [
+        {
+          "event": "sent",
+          "conditions": [],
+          "next": "FFbfc83e606ba6aeabd0ef32f9ea13eeaf",
+          "uuid": "3b77891d-ca96-41c6-b573-868ec02cde5c"
+        },
+        {
+          "event": "failed",
+          "conditions": [],
+          "next": null,
+          "uuid": "bba6e400-6ae9-4d64-ae88-7e343343babd"
+        }
+      ],
+      "sid": "FF5feac7f8be7447e6a72061c14fccac07"
+    }
+  ]
+}
