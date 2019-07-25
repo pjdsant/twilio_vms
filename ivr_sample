@@ -35,7 +35,7 @@
     },
     {
       "type": "Record",
-      "name": "GRAVA_RECADO",
+      "name": "RECORD_MESSAGE",
       "properties": {
         "offset": {
           "x": -2800,
@@ -71,16 +71,16 @@
     },
     {
       "type": "SayPlay",
-      "name": "FALA_RECADO",
+      "name": "SAY_MESSAGE",
       "properties": {
         "offset": {
           "x": -2600,
           "y": 280
         },
-        "say": "Excelente, já enviei um SMS para os nossos consultores com o seu recado. \nObrigado.",
+        "say": "Great, I have already sent an SMS to our consultants with your message.\n Thank you.",
         "play": null,
-        "voice": "Polly.Ricardo",
-        "language": "pt-BR",
+        "voice": "Polly.Kimberly",
+        "language": "en-US",
         "loop": 1
       },
       "transitions": [
@@ -95,16 +95,16 @@
     },
     {
       "type": "SayPlay",
-      "name": "BEM_VINDO",
+      "name": "WELCOME",
       "properties": {
         "offset": {
           "x": -3370,
           "y": -320
         },
-        "say": "Olá, bem vindo a Láiqui uáder.\nDeixei seu recado após o bip.",
+        "say": "Hello, welcome to Likewater. \n Leave your message after the beep, please.",
         "play": null,
-        "voice": "Polly.Ricardo",
-        "language": "pt-BR",
+        "voice": "Polly.Kimberly",
+        "language": "en-US",
         "loop": 1
       },
       "transitions": [
@@ -143,13 +143,13 @@
     },
     {
       "type": "Message",
-      "name": "ENVIA_SMS",
+      "name": "SEND_SMS",
       "properties": {
         "offset": {
           "x": -2700,
           "y": -30
         },
-        "body": "Ouça seu recado clicando nesse link {{widgets.GRAVA_RECADO.RecordingUrl}}",
+        "body": "listen to your message by clicking this link {{widgets.RECORD_MESSAGE.RecordingUrl}}",
         "from": "{{flow.channel.address}}",
         "to": "{{contact.channel.address}}",
         "media_url": null,
